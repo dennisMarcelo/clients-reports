@@ -11,8 +11,9 @@
 }
 
 .conteiner-links a {
-  margin: 10px;
+  margin: 20px;
   padding: 10px;
+  font-size: 1.5em;
 }
 
 @media screen and (max-width: 826px) {
