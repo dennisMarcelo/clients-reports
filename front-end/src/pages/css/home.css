@@ -1,0 +1,31 @@
+.home {
+  width: 100%;
+}
+
+.conteiner-links {
+  display: flex;
+  flex-direction: column;
+  margin: 10% auto;
+  width: 60%;
+  max-width: 800px;
+}
+
+.conteiner-links a {
+  text-align: center;
+  text-decoration: none;
+  background: #f87d0a;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 20px 5%;
+  color: #faf9f8;
+}
+
+.conteiner-links a:hover {
+  background: #aa5e35
+}
+
+@media screen and (max-width: 826px) {
+  .conteiner-links {
+    width: 90%;
+  }
+}
