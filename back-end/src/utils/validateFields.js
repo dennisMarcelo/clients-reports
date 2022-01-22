@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const CustomError = require('./CustomError');
 
-const newUser = (user) => {
+const user = (user) => {
   console.log(user);
   const { error } = Joi.object({
     cpf: Joi.string()
@@ -19,5 +19,5 @@ const newUser = (user) => {
 };
 
 module.exports = {
-  newUser,
+  user,
 };
