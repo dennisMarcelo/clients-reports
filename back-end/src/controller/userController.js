@@ -4,10 +4,17 @@ const userService = require('../service/userService');
 
 const router = express.Router();
 
+router.get('/getByCPF/:cpf', rescue(async (req, res) => {
+  const { cpf } = req.params;
+  const response = await userService.getUserByCPF(cpf);
+
+  res.status(response.statusCode).json(response);
+}));
+
 router.post('/', rescue(async (req, res) => {
   const response = await userService.create(req.body);
 
-  res.status(200).json({ teste: 'voltei' });
+  res.status(response.statusCode).json(response);
 }));
 
 module.exports = router;
