@@ -1,11 +1,13 @@
 const express = require('express');
 const userController = require('./src/controller/userController');
 const errorMiddleware = require('./src/middlewares/errorMiddleware');
+const cors = require('cors')
 
 const port = process.env.PORT || 3001;
 const app = express();
 
 // Configurações
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
