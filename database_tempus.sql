@@ -1,0 +1,20 @@
+DROP DATABASE IF EXISTS tempus_database;
+CREATE DATABASE tempus_database;
+
+USE tempus_database;
+
+DROP TABLE IF EXISTS clients;
+CREATE TABLE clients(
+	ID INT PRIMARY KEY AUTO_INCREMENT UNIQUE NOT NULL,
+	cpf VARCHAR(11) UNIQUE NOT NULL,
+    userName VARCHAR(150) NOT NULL,
+    birth DATE NOT NULL ,
+    registrationDate DATE DEFAULT (CURRENT_DATE) NOT NULL,
+    familyIncome DOUBLE(20, 2) DEFAULT (0) NOT NULL
+);
+
+INSERT INTO clients(cpf, userName, birth, registrationDate, familyIncome)
+VALUES
+	("12345678911", "FULANO 1", "1998-01-12", "2022-01-22", 500),
+    ("32345378112", "FULANO 2", "1999-02-12", "2021-11-30", 2500),
+    ("23658796587", "FULANO 3", "2010-01-12", "2021-12-22", 3500.99)
