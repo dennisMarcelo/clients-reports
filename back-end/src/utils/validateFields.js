@@ -2,7 +2,6 @@ const Joi = require('joi');
 const CustomError = require('./CustomError');
 
 const user = (data) => {
-  console.log(data);
   const { error } = Joi.object({
     cpf: Joi.string()
       .min(11)
