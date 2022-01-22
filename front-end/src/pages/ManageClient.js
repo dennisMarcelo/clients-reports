@@ -71,7 +71,6 @@ function ManageClient() {
     };
 
     const response = await fetchAPI('http://localhost:3001/user/', 'PUT', dataUser);
-    console.log(response);
     if (response.success) {
       alert(response.message);
       resetFilds();

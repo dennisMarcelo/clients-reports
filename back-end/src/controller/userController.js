@@ -17,4 +17,10 @@ router.post('/', rescue(async (req, res) => {
   res.status(response.statusCode).json(response);
 }));
 
+router.put('/', rescue(async (req, res) => {
+  const response = await userService.update(req.body);
+  
+  res.status(response.statusCode).json(response);
+}));
+
 module.exports = router;

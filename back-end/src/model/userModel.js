@@ -34,7 +34,6 @@ const create = async ({ cpf, userName, birth, registrationDate, familyIncome }) 
       user: { cpf, userName, birth, registrationDate, familyIncome },
     };
   } catch (err) {
-    console.log(err.message);
     if (err.code === 'ER_DUP_ENTRY') {
       throw new CustomError('Este CPf já esta sendo utilizado!', 422);
     } else {
@@ -43,9 +42,33 @@ const create = async ({ cpf, userName, birth, registrationDate, familyIncome }) 
   }
 };
 
+const update = async ({ cpf, userName, birth, familyIncome }) => {
+  try {
+    await connection.execute(`
+      UPDATE clients 
+      SET 
+        userName = ?,
+        birth = ?,
+        familyIncome = ?
+      WHERE
+        cpf = ?
+    `, [userName, birth, familyIncome, cpf]);
+  
+    return {
+      success: true, 
+      statusCode: 200, 
+      message: 'Usuário Atualizado!', 
+      user: {cpf, userName, birth, familyIncome},
+    };
+  }catch (err) {
+    throw new CustomError(err.message, 500);
+  }
+};
+
 module.exports = {
   create,
   getUserByCPF,
+  update,
 };
 
 // referencia status Code
