@@ -1,18 +1,8 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import fetchAPI from '../utils/fetchApi';
+import getCurrentDateFormated from '../utils/getCurrentDateFormated';
 import './css/ManageClient.css';
-
-const getCurrentDateFormated = () => {
-  const year = new Date().getFullYear();
-  const month = new Date().getMonth() + 1;
-  const day = new Date().getDate();
-
-  const monthFormated = month > 10 ? month : `0${month}`;
-  const dayFormated = day > 10 ? day : `0${day}`;
-
-  return `${year}-${monthFormated}-${dayFormated}`;
-};
 
 function ManageClient() {
   const [CPF, setCPF] = useState('');
@@ -21,7 +11,14 @@ function ManageClient() {
   const [familyIncome, setFamilyIncome] = useState(0);
   const [manageOpition, setManageOpition] = useState('Adicionar');
 
-  const formatCPF = (value) => {
+  const resetFilds = () => {
+    setCPF('');
+    setUserName('');
+    setBirth('');
+    setFamilyIncome(0);
+  };
+
+  const setAndFormatCPF = (value) => {
     let cpf = value.replace(/\D/g, ''); // Remove tudo o que não é dígito
     cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2'); // Coloca um ponto entre o terceiro e o quarto dígitos
     cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2'); // de novo (para o segundo bloco de números)
@@ -30,12 +27,26 @@ function ManageClient() {
     setCPF(cpf);
   };
 
-  const submitForm = async (event) => {
-    event.preventDefault();
+  const getUserByCPF = async (cpf) => {
+    if (manageOpition === 'Atualizar' && CPF.length === 14) {
+      const response = await fetchAPI(
+        `http://localhost:3001/user/getByCPF/${cpf.replace(/\D/g, '')}`,
+        'GET',
+      );
+
+      if (response.success) {
+        setUserName(response.user.userName);
+        setBirth(response.user.birth.slice(0, 10));
+        setFamilyIncome(response.user.familyIncome);
+      }
+    }
+  };
+
+  const createUser = async () => {
     const dataUser = {
       cpf: CPF.replace(/\D/g, ''),
       userName,
-      familyIncome,
+      familyIncome: !familyIncome ? 0 : familyIncome,
       birth,
       registrationDate: getCurrentDateFormated(),
     };
@@ -44,12 +55,49 @@ function ManageClient() {
 
     if (response.success) {
       alert(response.message);
-      setCPF('');
-      setUserName('');
-      setBirth('');
-      setFamilyIncome(0);
+      resetFilds();
     } else {
       alert(response.message);
+    }
+  };
+
+  const updateUser = async () => {
+    const dataUser = {
+      cpf: CPF.replace(/\D/g, ''),
+      userName,
+      familyIncome: !familyIncome ? 0 : familyIncome,
+      birth,
+      registrationDate: getCurrentDateFormated(),
+    };
+
+    const response = await fetchAPI('http://localhost:3001/user/', 'PUT', dataUser);
+    console.log(response);
+    if (response.success) {
+      alert(response.message);
+      resetFilds();
+    } else {
+      alert(response.message);
+    }
+  };
+
+  const removeUser = async () => {
+    alert('Removendo!');
+  };
+
+  const submitFormSelectOpetion = async (event) => {
+    event.preventDefault();
+    switch (manageOpition) {
+      case 'Adicionar':
+        createUser();
+        break;
+      case 'Atualizar':
+        updateUser();
+        break;
+      case 'Remover':
+        removeUser();
+        break;
+      default:
+        alert('Só aceito 3 opções!');
     }
   };
 
@@ -57,17 +105,23 @@ function ManageClient() {
     <>
       <Header />
       <div className="manage-client">
-        <select name="manage-options" value={manageOpition} onChange={({ target: { value } }) => setManageOpition(value)} className="manage-client_options">
+        <select
+          name="manage-options"
+          value={manageOpition}
+          onChange={({ target: { value } }) => setManageOpition(value)}
+          className="manage-client_options"
+        >
           <option value="Adicionar">Adicionar</option>
           <option value="Atualizar">Atualizar</option>
           <option value="Remover">Remover</option>
         </select>
 
-        <form className="manage-client_form" onSubmit={(event) => submitForm(event)}>
+        <form className="manage-client_form" onSubmit={(event) => submitFormSelectOpetion(event)}>
           <input
             type="text"
             value={CPF}
-            onChange={({ target: { value } }) => formatCPF(value)}
+            onChange={({ target: { value } }) => setAndFormatCPF(value)}
+            onBlur={({ target: { value } }) => getUserByCPF(value)}
             placeholder="CPF"
             maxLength="14"
             required
