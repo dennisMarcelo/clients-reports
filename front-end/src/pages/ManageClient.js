@@ -86,8 +86,7 @@ function ManageClient() {
 
     if (response.success) {
       alert(response.message);
-      console.log(response);
-      // resetFilds();
+      resetFilds();
     } else {
       alert(response.message);
     }
