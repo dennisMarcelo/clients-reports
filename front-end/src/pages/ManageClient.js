@@ -80,7 +80,17 @@ function ManageClient() {
   };
 
   const removeUser = async () => {
-    alert('Removendo!');
+    const dataUser = { cpf: CPF.replace(/\D/g, '') };
+
+    const response = await fetchAPI('http://localhost:3001/user/', 'DELETE', dataUser);
+
+    if (response.success) {
+      alert(response.message);
+      console.log(response);
+      // resetFilds();
+    } else {
+      alert(response.message);
+    }
   };
 
   const submitFormSelectOpetion = async (event) => {
@@ -127,35 +137,39 @@ function ManageClient() {
             pattern="/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/"
           />
 
-          <input
-            type="text"
-            value={userName}
-            onChange={({ target: { value } }) => setUserName(value)}
-            placeholder="Nome Completo"
-            maxLength="150"
-            required
-          />
+          {manageOpition === 'Remover' ? '' : (
+            <>
+              <input
+                type="text"
+                value={userName}
+                onChange={({ target: { value } }) => setUserName(value)}
+                placeholder="Nome Completo"
+                maxLength="150"
+                required
+              />
 
-          <label htmlFor="birth-date">
-            Data de nascimento:
-            <input
-              id="birth-date"
-              type="date"
-              value={birth}
-              onChange={({ target: { value } }) => setBirth(value)}
-              max={getCurrentDateFormated()}
-              required
-            />
-          </label>
+              <label htmlFor="birth-date">
+                Data de nascimento:
+                <input
+                  id="birth-date"
+                  type="date"
+                  value={birth}
+                  onChange={({ target: { value } }) => setBirth(value)}
+                  max={getCurrentDateFormated()}
+                  required
+                />
+              </label>
 
-          <input
-            type="number"
-            value={familyIncome}
-            onChange={({ target: { value } }) => setFamilyIncome(value)}
-            placeholder="Renda familiar"
-            min="0"
-            step="0.01"
-          />
+              <input
+                type="number"
+                value={familyIncome}
+                onChange={({ target: { value } }) => setFamilyIncome(value)}
+                placeholder="Renda familiar"
+                min="0"
+                step="0.01"
+              />
+            </>
+          )}
 
           <button className="primary-button manage-btn" type="submit">{`${manageOpition} Usuário`}</button>
         </form>

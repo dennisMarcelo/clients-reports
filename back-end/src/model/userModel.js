@@ -65,10 +65,28 @@ const update = async ({ cpf, userName, birth, familyIncome }) => {
   }
 };
 
+const remove = async ({ cpf }) => {
+  try {
+    await connection.execute(`
+      DELETE FROM clients WHERE cpf = ?
+    `,[cpf])
+
+    return {
+      success: true, 
+      statusCode: 200, 
+      message: 'Usuário Removido!', 
+      user: {},
+    };
+  } catch (err){
+    throw new CustomError(err.message, 500);
+  }
+}
+
 module.exports = {
   create,
   getUserByCPF,
   update,
+  remove
 };
 
 // referencia status Code

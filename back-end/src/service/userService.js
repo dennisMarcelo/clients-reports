@@ -12,13 +12,16 @@ const create = async (user) => {
 
 const update = async (user) => {
   isValid.user(user);
-  
+
   const response = await userModel.update(user);
   return response;
 };
+
+const remove = async (cpf) => userModel.remove(cpf);
 
 module.exports = {
   create,
   getUserByCPF,
   update,
+  remove
 };

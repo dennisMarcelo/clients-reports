@@ -15,6 +15,8 @@ const fetchAPI = async (url, method, data) => {
       return fetch(url, requestData).then((res) => res.json());
     case 'PUT':
       return fetch(url, requestData).then((res) => res.json());
+    case 'DELETE':
+      return fetch(url, requestData).then((res) => res.json());
     default:
       return 'This request is not valid!';
   }
