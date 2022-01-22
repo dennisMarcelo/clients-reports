@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
+import fetchAPI from '../utils/fetchApi';
 import './css/ManageClient.css';
 
 const getCurrentDateFormated = () => {
@@ -17,7 +18,7 @@ function ManageClient() {
   const [CPF, setCPF] = useState('');
   const [userName, setUserName] = useState('');
   const [birth, setBirth] = useState('');
-  const [familyIncome, setFamilyIncome] = useState('');
+  const [familyIncome, setFamilyIncome] = useState(0);
   const [manageOpition, setManageOpition] = useState('Adicionar');
 
   const formatCPF = (value) => {
@@ -29,7 +30,7 @@ function ManageClient() {
     setCPF(cpf);
   };
 
-  const submitForm = (event) => {
+  const submitForm = async (event) => {
     event.preventDefault();
     const dataUser = {
       cpf: CPF.replace(/\D/g, ''),
@@ -39,7 +40,17 @@ function ManageClient() {
       registrationDate: getCurrentDateFormated(),
     };
 
-    console.log(dataUser);
+    const response = await fetchAPI('http://localhost:3001/user/', 'POST', dataUser);
+
+    if (response.success) {
+      alert(response.message);
+      setCPF('');
+      setUserName('');
+      setBirth('');
+      setFamilyIncome(0);
+    } else {
+      alert(response.message);
+    }
   };
 
   return (
