@@ -1,0 +1,88 @@
+.client-page {
+  width: 60%;
+  max-width: 1264px;
+  margin: auto;
+}
+
+.search-client {
+  float: right;
+  margin: 5px 0;
+  padding: 5px 10px;
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  border-radius: 25px;
+  outline: 0;
+  text-align: center;
+  background-image:url('../../img/iconeSearch64.png');
+  background-repeat:no-repeat;
+  background-size: 30px;
+  background-position: 10px;
+  width:200px;
+  transition-delay: 100ms;
+  transition-duration: 1.5s;
+}
+
+.search-client:focus {
+  width:250px;
+
+}
+
+.client-list {
+  clear: both;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.client {
+  margin:10px;
+  font-size: 1.2em;
+  text-align: center;
+  background-color: #352523;
+}
+
+.client td {
+  padding: 15px 0;
+  border: 2px solid #f87d0a;
+  color: #f0eff5
+}
+
+.page-controller {
+  margin: 50px 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.income {
+  color: #352523;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.background-yellow {
+  background-color: yellow;
+}
+
+.background-green {
+  background-color: greenyellow;
+}
+
+.background-red {
+  background-color: red;
+}
+
+.page-controller button {
+  font-size: 2em;
+  padding: 5px 30px
+}
+
+@media screen and (max-width:1240px) {
+  .client-page{
+    width: 90%;
+  }
+}
+
+@media screen and (max-width:537px) {
+  .class-type {
+    display: none
+  }
+}
