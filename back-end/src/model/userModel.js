@@ -1,7 +1,7 @@
 const CustomError = require('../utils/CustomError');
 const connection = require('./connection');
 
-const userModel = {}
+const userModel = {};
 
 userModel.getUserByCPF = async (cpf) => {
   const [clients] = await connection.execute(`
