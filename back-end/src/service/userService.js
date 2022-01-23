@@ -1,33 +1,28 @@
 const isValid = require('../utils/validateFields');
 const userModel = require('../model/userModel');
 
-const getUserByCPF = async (cpf) => userModel.getUserByCPF(cpf);
+const userService = {}
 
-const create = async (user) => {
+userService.getUserByCPF = async (cpf) => userModel.getUserByCPF(cpf);
+
+userService.create = async (user) => {
   isValid.user(user);
 
   const response = await userModel.create(user);
   return response;
 };
 
-const update = async (user) => {
+userService.update = async (user) => {
   isValid.user(user);
 
   const response = await userModel.update(user);
   return response;
 };
 
-const remove = async (cpf) => userModel.remove(cpf);
+userService.remove = async (cpf) => userModel.remove(cpf);
 
-const getAllUsers = async (page) => userModel.getAllUsers(page);
+userService.getAllUsers = async (page) => userModel.getAllUsers(page);
 
-const getUserByName = async (name) => userModel.getUserByName(name);
+userService.getUserByName = async (name) => userModel.getUserByName(name);
 
-module.exports = {
-  create,
-  getUserByCPF,
-  update,
-  remove,
-  getAllUsers,
-  getUserByName,
-};
+module.exports = userService
