@@ -53,14 +53,14 @@ const update = async ({ cpf, userName, birth, familyIncome }) => {
       WHERE
         cpf = ?
     `, [userName, birth, familyIncome, cpf]);
-  
+
     return {
-      success: true, 
-      statusCode: 200, 
-      message: 'Usuário Atualizado!', 
-      user: {cpf, userName, birth, familyIncome},
+      success: true,
+      statusCode: 200,
+      message: 'Usuário Atualizado!',
+      user: { cpf, userName, birth, familyIncome },
     };
-  }catch (err) {
+  } catch (err) {
     throw new CustomError(err.message, 500);
   }
 };
@@ -69,24 +69,70 @@ const remove = async ({ cpf }) => {
   try {
     await connection.execute(`
       DELETE FROM clients WHERE cpf = ?
-    `,[cpf])
+    `, [cpf]);
 
     return {
-      success: true, 
-      statusCode: 200, 
-      message: 'Usuário Removido!', 
+      success: true,
+      statusCode: 200,
+      message: 'Usuário Removido!',
       user: {},
     };
-  } catch (err){
+  } catch (err) {
     throw new CustomError(err.message, 500);
   }
-}
+};
+
+const getAllUsers = async (page) => {
+  const start = 10 * page;
+  const end = 10 * (page + 1);
+  try {
+    const [users] = await connection.execute(`
+      SELECT *
+      FROM clients
+      ORDER BY registrationDate DESC, userName ASC
+      LIMIT ${start}, ${end}
+    `);
+
+    return {
+      success: true,
+      statusCode: 200,
+      message: `Página: ${parseInt(page, 10) + 1}`,
+      users,
+    };
+  } catch (err) {
+    console.log(err);
+    throw new CustomError(err.message, 500);
+  }
+};
+
+const getUserByName = async (name) => {
+  try {
+    const [users] = await connection.execute(`
+      SELECT *
+      FROM clients
+      WHERE userName LIKE '%${name}%'
+      ORDER BY registrationDate DESC, userName ASC
+      LIMIT 0, 10
+    `);
+
+    return {
+      success: true,
+      statusCode: 200,
+      message: 'Lista de usuários',
+      users,
+    };
+  } catch (err) {
+    throw new CustomError(err.message, 500);
+  }
+};
 
 module.exports = {
   create,
   getUserByCPF,
   update,
-  remove
+  remove,
+  getAllUsers,
+  getUserByName,
 };
 
 // referencia status Code
