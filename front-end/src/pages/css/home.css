@@ -11,17 +11,9 @@
 }
 
 .conteiner-links a {
-  text-align: center;
-  text-decoration: none;
-  background: #f87d0a;
-  margin: 10px;
+  margin: 20px;
   padding: 10px;
-  border-radius: 20px 5%;
-  color: #faf9f8;
-}
-
-.conteiner-links a:hover {
-  background: #aa5e35
+  font-size: 1.5em;
 }
 
 @media screen and (max-width: 826px) {

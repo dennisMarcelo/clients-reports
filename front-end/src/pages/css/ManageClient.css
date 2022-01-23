@@ -1,0 +1,63 @@
+.manage-client {
+  width: 60%;
+  max-width: 1264px;
+  margin: auto;
+}
+
+.manage-client_options {
+  float: right;
+  margin: 10px 0;
+  padding: 10px 20px;
+  font-size: 1.3em;
+  margin-bottom: 10px;
+  outline: 0;
+}
+
+.manage-client_form {
+  clear: both;
+  display: flex;
+  margin: 0 5%;
+  flex-direction: column;
+}
+
+.manage-client_form * {
+  margin: 10px 0;
+  padding: 10px 0;
+  font-size: 1.3em;
+  border-radius: 10px;
+  border: none;
+}
+
+.manage-client_form input {
+  text-align: center;
+}
+
+.manage-client_form input:focus {
+  outline-color: #f87d0a;
+}
+
+.manage-client_form input[type="date"] {
+  padding: 15px 30px;
+  margin-left: 20px;
+}
+
+.manage-btn {
+  width: 100%;
+  max-width: 300px;
+  align-self: center;
+  margin-top: 5%;
+  border-radius: 20px 5%;
+}
+
+@media screen and (max-width: 1084px) {
+  .manage-client {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width:577px) {
+  .manage-client_form input[type="date"] {
+    padding: 15px 30px;
+    margin-left: 0;
+  }
+}

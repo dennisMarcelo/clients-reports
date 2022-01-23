@@ -6,9 +6,9 @@ function Home() {
   return (
     <div className="home">
       <div className="conteiner-links">
-        <Link to="/register">Cadastrar Cliente</Link>
-        <Link to="/clients">Listar Clientes</Link>
-        <Link to="/reports">Relatório</Link>
+        <Link className="primary-button" to="/manage-client">Gerenciar Clientes</Link>
+        <Link className="primary-button" to="/clients">Listar Clientes</Link>
+        <Link className="primary-button" to="/reports">Relatório</Link>
       </div>
     </div>
   );
