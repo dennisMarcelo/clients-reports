@@ -19,9 +19,15 @@ const update = async (user) => {
 
 const remove = async (cpf) => userModel.remove(cpf);
 
+const getAllUsers = async (page) => userModel.getAllUsers(page);
+
+const getUserByName = async (name) => userModel.getUserByName(name);
+
 module.exports = {
   create,
   getUserByCPF,
   update,
-  remove
+  remove,
+  getAllUsers,
+  getUserByName,
 };
