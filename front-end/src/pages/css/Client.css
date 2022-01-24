@@ -58,18 +58,6 @@
   border-radius: 20px;
 }
 
-.background-yellow {
-  background-color: yellow;
-}
-
-.background-green {
-  background-color: greenyellow;
-}
-
-.background-red {
-  background-color: red;
-}
-
 .page-controller button {
   font-size: 2em;
   padding: 5px 30px

@@ -1,5 +1,6 @@
 const express = require('express');
 const userController = require('./src/controller/userController');
+const reportsController = require('./src/controller/reportsController');
 const errorMiddleware = require('./src/middlewares/errorMiddleware');
 const cors = require('cors')
 
@@ -17,6 +18,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/user', userController)
+app.use('/reports', reportsController);
 
 app.use(errorMiddleware);
 

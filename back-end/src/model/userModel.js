@@ -1,7 +1,9 @@
 const CustomError = require('../utils/CustomError');
 const connection = require('./connection');
 
-const getUserByCPF = async (cpf) => {
+const userModel = {};
+
+userModel.getUserByCPF = async (cpf) => {
   const [clients] = await connection.execute(`
       SELECT *
       FROM clients
@@ -17,7 +19,7 @@ const getUserByCPF = async (cpf) => {
   };
 };
 
-const create = async ({ cpf, userName, birth, registrationDate, familyIncome }) => {
+userModel.create = async ({ cpf, userName, birth, registrationDate, familyIncome }) => {
   try {
     await connection.execute(
       `
@@ -42,7 +44,7 @@ const create = async ({ cpf, userName, birth, registrationDate, familyIncome }) 
   }
 };
 
-const update = async ({ cpf, userName, birth, familyIncome }) => {
+userModel.update = async ({ cpf, userName, birth, familyIncome }) => {
   try {
     await connection.execute(`
       UPDATE clients 
@@ -65,7 +67,7 @@ const update = async ({ cpf, userName, birth, familyIncome }) => {
   }
 };
 
-const remove = async ({ cpf }) => {
+userModel.remove = async ({ cpf }) => {
   try {
     await connection.execute(`
       DELETE FROM clients WHERE cpf = ?
@@ -82,7 +84,7 @@ const remove = async ({ cpf }) => {
   }
 };
 
-const getAllUsers = async (page) => {
+userModel.getAllUsers = async (page) => {
   const start = 10 * page;
   const end = 10 * (page + 1);
   try {
@@ -105,7 +107,7 @@ const getAllUsers = async (page) => {
   }
 };
 
-const getUserByName = async (name) => {
+userModel.getUserByName = async (name) => {
   try {
     const [users] = await connection.execute(`
       SELECT *
@@ -126,14 +128,7 @@ const getUserByName = async (name) => {
   }
 };
 
-module.exports = {
-  create,
-  getUserByCPF,
-  update,
-  remove,
-  getAllUsers,
-  getUserByName,
-};
+module.exports = userModel;
 
 // referencia status Code
 // https://pt.stackoverflow.com/questions/394699/status-http-para-usu%C3%A1rio-j%C3%A1-cadastrado

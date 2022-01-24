@@ -20,3 +20,20 @@ body {
 .primary-button:hover {
   background: #aa5e35
 }
+
+.background-yellow {
+  background-color: yellow;
+}
+
+.background-green {
+  background-color: greenyellow;
+}
+
+.background-red {
+  background-color: red;
+}
+
+.font-bold {
+  font-weight: bold;
+  font-size: 1.7em;
+}
