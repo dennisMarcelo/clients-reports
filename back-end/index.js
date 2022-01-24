@@ -2,8 +2,9 @@ const express = require('express');
 const userController = require('./src/controller/userController');
 const reportsController = require('./src/controller/reportsController');
 const errorMiddleware = require('./src/middlewares/errorMiddleware');
-const cors = require('cors')
+require('dotenv').config()
 
+const cors = require('cors')
 const port = process.env.PORT || 3001;
 const app = express();
 
