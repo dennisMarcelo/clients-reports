@@ -1,7 +1,7 @@
 const isValid = require('../utils/validateFields');
 const userModel = require('../model/userModel');
 
-const userService = {}
+const userService = {};
 
 userService.getUserByCPF = async (cpf) => userModel.getUserByCPF(cpf);
 
@@ -25,4 +25,4 @@ userService.getAllUsers = async (page) => userModel.getAllUsers(page);
 
 userService.getUserByName = async (name) => userModel.getUserByName(name);
 
-module.exports = userService
+module.exports = userService;
