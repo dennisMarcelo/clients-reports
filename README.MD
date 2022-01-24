@@ -8,7 +8,7 @@
   - cors
   - express
   - express-rescue
-  - joi
+  - joi (valida dados que vem do front)
   - mysql2
   - nodemon
 
